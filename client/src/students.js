@@ -1,6 +1,6 @@
-import React, {Component} from "react";
+import React, {Component} from 'react';
 
-class Students extends Component{
+class Students extends Component {
   constructor(){
     super();
     this.state = {
@@ -8,20 +8,32 @@ class Students extends Component{
     }
   }
 
-  async comoponentDidMount(){
-    const res = await fetch("/api/student");
-    const data = await res.join();
-    console.log("hello",data);
+  async componentDidMount() {
+    const res = await fetch('/api/students');
+    const data = await res.json();
     this.setState({
-      students:data
+      students: data
     })
   }
 
-  render(){
+render(){
+  const {students} = this.state
+  if(students.length){
+  return (
+    <ul>
+    {students.map(el => {
+      return(
+        <li key={el.id}>{el.firstName}</li>
+      )
+    })}
+    </ul>
+  )
+  }else {
     return(
-      <div>{this.state.student}</div>
+      <div>Loading...</div>
     )
   }
+}
 }
 
 export default Students;
