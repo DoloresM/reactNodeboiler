@@ -8,7 +8,7 @@ const mysqlConnection = mysql.createConnection({
   host: '10.9.3.218',
   user: 'TWStudent',
   password: 'TechWorks!',
-  database: 'techworks',
+  database: 'employeedb',
   multipleStatements: true
 });
 
@@ -37,6 +37,14 @@ app.get('/employees', (req, res) => {
     else console.log(err);
   });
 });
+
+app.get('/', (req, res) => {
+  mysqlConnection.query('SELECT * FROM employee', (err, rows, field) => {
+    if (!err) res.send(rows);
+    else console.log(err);
+  });
+});
+
 
 //Get an employee
 app.get('/employees/:id', (req, res) => {
